@@ -6,6 +6,7 @@ result-*
 /result
 
 # Source reference directories
+/comfyui-src/
 /src/comfyui
 /src/comfyui-frontend
 /src/comfyui-workflow-templates

@@ -582,8 +582,9 @@ let
               (sleep 3 && ${browserCommand} "http://127.0.0.1:$PORT" 2>/dev/null) &
             fi
 
-            # Run ComfyUI directly from Nix store
-            exec "${pythonRuntime}/bin/python" "${comfyuiSrc}/main.py" \
+            # Use local source if COMFYUI_SRC is set, otherwise Nix store
+            COMFYUI_SRC="''${COMFYUI_SRC:-${comfyuiSrc}}"
+            exec "${pythonRuntime}/bin/python" "$COMFYUI_SRC/main.py" \
               --base-directory "$BASE_DIR" \
               --front-end-root "${frontendRoot}" \
               --database-url "sqlite:///$BASE_DIR/user/comfyui.db" \
