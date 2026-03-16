@@ -113,15 +113,14 @@ lib.optionalAttrs useCuda {
     passthru = {
       cudaSupport = true;
       rocmSupport = false;
-      # All architectures supported by pre-built wheel (Pascal through Blackwell)
+      # All architectures supported by pre-built wheel (Turing through Blackwell)
+      # CUDA 13 nvcc dropped support for compute capabilities below 7.5
       cudaCapabilities = [
-        "6.1"
-        "7.0"
-        "7.5"
-        "8.0"
-        "8.6"
-        "8.9"
-        "9.0"
+        "7.5" # Turing (RTX 20xx, GTX 16xx)
+        "8.0" # Ampere (A100)
+        "8.6" # Ampere (RTX 30xx)
+        "8.9" # Ada Lovelace (RTX 40xx)
+        "9.0" # Hopper (H100)
         "10.0" # Blackwell (B100/B200 data center)
         "12.0" # Blackwell (RTX 50xx consumer)
       ];
