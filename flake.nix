@@ -58,7 +58,7 @@
           # - Fast builds (download ~2GB vs compile for hours)
           # - Low memory usage (no 30-60GB RAM requirement)
           # - All GPU architectures supported (Pascal through Blackwell)
-          # - CUDA 12.8 runtime bundled in wheels
+          # - CUDA 13.0 runtime bundled in wheels
           # =======================================================================
 
           # =======================================================================
