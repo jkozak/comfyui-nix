@@ -584,6 +584,7 @@ let
 
             # Use local source if COMFYUI_SRC is set, otherwise Nix store
             COMFYUI_SRC="''${COMFYUI_SRC:-${comfyuiSrc}}"
+            COMFYUI_SRC="$(cd "$COMFYUI_SRC" && pwd)"
             exec "${pythonRuntime}/bin/python" "$COMFYUI_SRC/main.py" \
               --base-directory "$BASE_DIR" \
               --front-end-root "${frontendRoot}" \
