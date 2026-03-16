@@ -308,7 +308,12 @@ let
             ulimit -n 10240 2>/dev/null || true
 
             # Parse arguments - extract --base-directory, --open, --port, pass rest to ComfyUI
-            BASE_DIR="''${COMFY_USER_DIR:-${defaultDataDir}}"
+            # When COMFYUI_SRC is set, default base directory to the source checkout
+            if [[ -n "''${COMFYUI_SRC:-}" ]]; then
+              BASE_DIR="''${COMFY_USER_DIR:-$COMFYUI_SRC}"
+            else
+              BASE_DIR="''${COMFY_USER_DIR:-${defaultDataDir}}"
+            fi
             OPEN_BROWSER=false
             PORT=8188
             COMFY_ARGS=()
