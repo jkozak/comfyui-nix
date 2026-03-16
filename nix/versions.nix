@@ -69,9 +69,14 @@
 
     # New ComfyUI core deps (not in nixpkgs)
     comfyKitchen = {
-      version = "0.2.7";
-      url = "https://files.pythonhosted.org/packages/f8/65/d483613734d0b9753bd9bfa297ff334cb2c7766e82306099db6b259b4e2c/comfy_kitchen-0.2.7-py3-none-any.whl";
-      hash = "sha256-+PqlebadMx0vHqwJ6WqVWGwqa5WKVLwZ5/HBp3hS3TY=";
+      version = "0.2.8";
+      url = "https://files.pythonhosted.org/packages/46/b0/64c3e0656db822cb4f7dbc928d6a13cf2cad861cc178e6386114634e355b/comfy_kitchen-0.2.8-py3-none-any.whl";
+      hash = "sha256-CzIpks8Wgevj1BOseVDznlzEJVBcE8740IUnzoL+XjI=";
+      # Platform-specific wheel with compiled CUDA extension (_C.abi3.so)
+      linuxX86_64 = {
+        url = "https://files.pythonhosted.org/packages/9a/af/e87ebae2b1bba35291663b0d6eea6748b340d7c21802224cfb37f3a48dda/comfy_kitchen-0.2.8-cp312-abi3-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl";
+        hash = "sha256-Vwsut0x3zpNWsBQOwZAlPcvt6x6SvsUJJESr75zSTr8=";
+      };
     };
 
     comfyAimdo = {

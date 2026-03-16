@@ -11,7 +11,14 @@ let
 
   python = pkgs.python312.override { packageOverrides = pythonOverrides; };
 
-  vendored = import ./vendored-packages.nix { inherit pkgs python versions; };
+  vendored = import ./vendored-packages.nix {
+    inherit
+      pkgs
+      python
+      versions
+      gpuSupport
+      ;
+  };
 
   # Template input files (images, audio, etc. for workflow templates)
   templateInputs = import ./template-inputs.nix { inherit pkgs; };

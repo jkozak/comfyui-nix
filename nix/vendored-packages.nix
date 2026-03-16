@@ -2,6 +2,7 @@
   pkgs,
   python,
   versions,
+  gpuSupport ? "none",
 }:
 let
   mkWheel =
@@ -90,12 +91,40 @@ rec {
     hash = versions.vendored.manager.hash;
   };
 
-  comfyKitchen = mkWheel {
-    pname = "comfy-kitchen";
-    version = versions.vendored.comfyKitchen.version;
-    url = versions.vendored.comfyKitchen.url;
-    hash = versions.vendored.comfyKitchen.hash;
-  };
+  comfyKitchen =
+    let
+      ck = versions.vendored.comfyKitchen;
+      # Use platform-specific wheel with compiled CUDA extension on Linux x86_64
+      useNativeWheel =
+        gpuSupport == "cuda"
+        && pkgs.stdenv.isLinux
+        && pkgs.stdenv.hostPlatform.isx86_64
+        && (ck ? linuxX86_64);
+    in
+    if useNativeWheel then
+      python.pkgs.buildPythonPackage {
+        pname = "comfy-kitchen";
+        version = ck.version;
+        format = "wheel";
+        src = pkgs.fetchurl {
+          url = ck.linuxX86_64.url;
+          hash = ck.linuxX86_64.hash;
+        };
+        nativeBuildInputs = [ pkgs.autoPatchelfHook ];
+        buildInputs = [
+          pkgs.stdenv.cc.cc.lib
+          pkgs.cudaPackages_13.cuda_cudart
+        ];
+        autoPatchelfIgnoreMissingDeps = [ "libcuda.so.1" ];
+        doCheck = false;
+      }
+    else
+      mkWheel {
+        pname = "comfy-kitchen";
+        version = ck.version;
+        url = ck.url;
+        hash = ck.hash;
+      };
 
   comfyAimdo = mkWheel {
     pname = "comfy-aimdo";
